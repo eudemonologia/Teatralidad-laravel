@@ -8,6 +8,16 @@
             <div class="flex flex-col md:ml-12 lg:ml-24">
                 <h3 class="text-xl font-semibold text-gray-400 mb-4">{{ $movie['tagline'] }}</h3>
                 <h2 class="text-4xl font-semibold">{{ $movie['title'] }}</h2>
+
+                <div class="flex mt-4">
+                    <button class="bg-orange-500  text-gray-900 flex gap-1 px-1 rounded-sm text-sm">
+                        <span class="material-icons text-sm">
+                            thumb_up_off_alt
+                        </span>
+                        <p class="font-bold">0</p>
+                    </button>
+                </div>
+
                 <div class="flex flex-wrap items-center text-gray-400 text-sm mt-4">
                     <span class="material-icons text-orange-500 text-xs select-none">star</span>
                     <span class="ml-1">{{ $movie['vote_average'] * 10 }}%</span>
@@ -38,16 +48,20 @@
                     </div>
                 </div>
 
-                @if ($movie['videos']['results'])
-                    <a href="https://www.youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" target="_blank" class="flex items-center mt-12">
-                        <button class="openModalVideoBtn flex items-center bg-orange-500 text-gray-900 rounded font-semibold w-fit px-6 py-4 mt-12 hover:bg-orange-600 transition ease-in-out duration-150">
-                            <span class="material-icons mr-2 select-none">
-                                play_circle_outline
-                            </span>
-                            <p>Ver trailer</p>
-                        </button>
-                    </a>
-                @endif
+                
+                <div class="flex gap-12 mt-12">
+                    @if ($movie['videos']['results'])
+                        {{-- <a href="https://www.youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" target="_blank" class="flex items-center w-fit "> --}}
+                            <button class="openModalVideoBtn flex items-center bg-orange-500 text-gray-900 rounded font-semibold w-fit px-6 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
+                                <span class="material-icons mr-2 select-none">
+                                    play_circle_outline
+                                </span>
+                                <p>Ver trailer</p>
+                            </button>
+                        {{-- </a> --}}
+                    @endif
+                </div>
+                
             </div>
         </div>
     </main>

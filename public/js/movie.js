@@ -43,3 +43,26 @@ if (seeAllImages != null) {
 
 seeLess(actors, 10);
 seeLess(images, 9);
+
+const openModalVideoBtn = document.querySelector(".openModalVideoBtn");
+const modalVideo = document.querySelector(".modalVideo");
+const closeModalVideoBtn = document.querySelector(".closeModalLoginBtn");
+
+if (openModalVideoBtn != null) {
+    openModalVideoBtn.addEventListener("click", () => {
+        modalVideo.classList.remove("hidden");
+        modalVideo.classList.add("flex");
+    });
+
+    closeModalVideoBtn.addEventListener("click", () => {
+        modalVideo.classList.add("hidden");
+        modalVideo.classList.remove("flex");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (e.target == modalVideo) {
+            modalVideo.classList.add("hidden");
+            modalVideo.classList.remove("flex");
+        }
+    });
+}
