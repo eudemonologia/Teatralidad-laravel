@@ -2,8 +2,8 @@
 
 @section('content')
     <main class="container mx-auto px-4 pt-12">
-        {{-- Películas populares --}}
-        <section class="popularMovies">
+        {{-- Series populares --}}
+        <section class="popularSeries">
             <header class="flex">
                 <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">Series Populares</h2>
                 <div class="ml-auto">
@@ -23,7 +23,7 @@
             </div>
         </section>
 
-        {{-- Películas actualres --}}
+        {{-- Series actuales --}}
         <section class="nowPlaying mt-12">
             <header class="flex">
                 <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">Emitiéndose Actualmente</h2>
@@ -47,5 +47,5 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/index.js') }}"></script>
+    <script src="{{ asset('js/series.js') }}"></script>
 @endsection

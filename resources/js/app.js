@@ -8,7 +8,7 @@ let scrollPosition = 0;
 buscador.addEventListener("keyup", (e) => {
     if (e.keyCode == 13 && buscador.value != "") {
         let palabraBuscada = buscador.value.toLowerCase().trim();
-        axios.get("./search/" + palabraBuscada).then((response) => {
+        axios.get("/search/" + palabraBuscada).then((response) => {
             const peliculas = response.data;
 
             resultados.innerHTML = "";
@@ -17,7 +17,7 @@ buscador.addEventListener("keyup", (e) => {
                 for (let i = 0; i < 10; i++) {
                     resultados.innerHTML += `
                 <li class="list-none border-b border-gray-700">
-                    <a href="./movie/${peliculas[i].id}" class="block hover:bg-gray-700 px-3 py-3">
+                    <a href="/movie/${peliculas[i].id}" class="block hover:bg-gray-700 px-3 py-3">
                         ${peliculas[i].title}
                     </a>
                 </li>

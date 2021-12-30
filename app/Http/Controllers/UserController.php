@@ -73,9 +73,7 @@ class UserController extends Controller
             'avatar' => $params['avatar'],
         ]);
 
-        dump($params);
-
-        return Redirect::to('/');
+        return Redirect::to('/')->with('message', 'Usuario registrado correctamente');
     }
 
     /**
@@ -86,10 +84,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-
         $user = DB::table('users')->where('id', $id)->first();
-
-        dump($user);
 
         return view('user', [
             'user' => $user,
@@ -106,8 +101,6 @@ class UserController extends Controller
     {
         $user = DB::table('users')->where('id', $id)->first();
 
-        dump($user);
-
         return view('edit-user', [
             'user' => $user,
         ]);
@@ -122,7 +115,48 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (session('user') && session('user')->id == $id) {
+            $user = DB::table('users')->where('id', $id)->first();
+
+            $params =  request()->validate([
+                'name' => 'required',
+                'lastname' => 'required',
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+                'repassword' => 'required|same:password',
+                'fnacimiento' => 'date',
+            ]);
+
+            $params['id'] = $id;
+
+            if ($request->hasFile('avatar')) {
+                $file = request()->validate([
+                    'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ])['avatar'];
+                $name = time() . $params['name'] . '-' . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path() . '/images/avatars/', $name);
+                $params['avatar'] = $name;
+                //Delete old avatar
+                if ($user->avatar != null) {
+                    unlink(public_path() . '/images/avatars/' . $user->avatar);
+                }
+            } else {
+                $params['avatar'] = $user->avatar;
+            }
+
+            $user = DB::table('users')->where('id', $id)->update([
+                'name' => $params['name'],
+                'lastname' => $params['lastname'],
+                'email' => $params['email'],
+                'password' => md5($params['password']),
+                'fnacimiento' => $params['fnacimiento'],
+                'avatar' => $params['avatar'],
+            ]);
+
+            return Redirect::to('/user/' . $id)->with('message', 'Usuario actualizado correctamente');
+        } else {
+            return redirect('/')->withErrors('No tienes permisos para editar este usuario');
+        }
     }
 
     /**
@@ -176,7 +210,7 @@ class UserController extends Controller
     {
         if (session()->has('user')) {
             session()->forget('user');
-            return Redirect::to('/');
+            return Redirect::to('/')->with('message', 'Sesión cerrada correctamente');
         } else {
             return Redirect::back()->withErrors(['message' => 'No te encuentras logueado.']);
         }

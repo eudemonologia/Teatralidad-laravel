@@ -45,7 +45,9 @@ class SeriesController extends Controller
             ->get('https://api.themoviedb.org/3/tv/' . $id . '/videos?language=es-ES')
             ->json();
 
-        dump($serie);
+        $serie['credits'] = Http::withToken(config('services.tmdb.token'))
+            ->get('https://api.themoviedb.org/3/tv/' . $id . '/credits?language=es-ES')
+            ->json();
 
         return view('serie', [
             'serie' => $serie

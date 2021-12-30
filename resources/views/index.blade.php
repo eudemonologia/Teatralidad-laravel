@@ -23,7 +23,7 @@
             </div>
         </section>
 
-        {{-- Películas actualres --}}
+        {{-- Películas actuales --}}
         <section class="nowPlaying mt-12">
             <header class="flex">
                 <h2 class="uppercase tracking-wider text-orange-500 text-lg font-semibold">Cartelera Actual</h2>

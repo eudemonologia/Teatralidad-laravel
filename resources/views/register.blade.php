@@ -11,13 +11,13 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="registerName">
                             Nombre *
                         </label>
-                        <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerName" type="text" placeholder="Nombre">
+                        <input name="name" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerName" type="text" placeholder="Nombre" required>
                     </div>
                     <div class="w-full md:w-1/2 px-3">
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="registerLastname">
                             Apellido *
                         </label>
-                        <input name="lastname" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerLastname" type="text" placeholder="Apellido">
+                        <input name="lastname" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerLastname" type="text" placeholder="Apellido" required>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
@@ -25,7 +25,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="registerPassword">
                             Contraseña *
                         </label>
-                        <input name="password" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerPassword" type="password" placeholder="******************">
+                        <input name="password" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerPassword" type="password" placeholder="******************" required>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
@@ -33,7 +33,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="registerRepassword">
                             Confirmar contraseña *
                         </label>
-                        <input name="repassword" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerRepassword" type="password" placeholder="******************">
+                        <input name="repassword" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerRepassword" type="password" placeholder="******************" required>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">
@@ -41,7 +41,7 @@
                         <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="registerEmail">
                             Correo electrónico *
                         </label>
-                        <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerEmail" type="email" placeholder="Correo Electrónico">
+                        <input name="email" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="registerEmail" type="email" placeholder="Correo Electrónico" required>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-2">

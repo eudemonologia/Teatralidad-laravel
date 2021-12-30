@@ -4,7 +4,9 @@ const seeAllActors = document.querySelector(".cast .seeAllBtn");
 const images = document.querySelectorAll(".images .image");
 const seeAllImages = document.querySelector(".images .seeAllBtn");
 
-// Mostrar solo e actores
+const seasons = document.querySelectorAll(".seasons .season");
+const seeAllSeasons = document.querySelector(".seasons .seeAllBtn");
+
 function seeLess(array, number) {
     for (let i = number; i < array.length; i++) {
         array[i].classList.add("hidden");
@@ -29,6 +31,18 @@ if (seeAllActors != null) {
     });
 }
 
+if (seeAllSeasons != null) {
+    seeAllSeasons.addEventListener("click", () => {
+        if (seeAllSeasons.innerHTML == "Ver todas las temporadas") {
+            seeAllSeasons.innerHTML = "Ver menos";
+            seeAll(seasons);
+        } else {
+            seeAllSeasons.innerHTML = "Ver todas las temporadas";
+            seeLess(seasons, 5);
+        }
+    });
+}
+
 if (seeAllImages != null) {
     seeAllImages.addEventListener("click", () => {
         if (seeAllImages.innerHTML == "Ver todas las imágenes") {
@@ -42,4 +56,5 @@ if (seeAllImages != null) {
 }
 
 seeLess(actors, 10);
+seeLess(seasons, 5);
 seeLess(images, 9);

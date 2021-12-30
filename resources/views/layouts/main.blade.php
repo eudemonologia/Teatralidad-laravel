@@ -28,7 +28,7 @@
                     <a href="{{ route('series')}}" class="hover:text-gray-300">Series</a>
                 </li>
                 <li>
-                    <a href="" class="hover:text-gray-300">Actores</a>
+                    <a href="{{ route('actors') }}" class="hover:text-gray-300">Actores</a>
                 </li>
             </ul>
             
@@ -89,6 +89,12 @@
                     <li>{{ $error }}</li>
                 @endforeach 
             </ul>
+    @endif
+    {{-- Mensajes --}}
+    @if (session('message'))
+        <div class="container m-auto bg-green-500 text-white p-3 rounded-lg mt-4">
+            {{ session('message') }}
+        </div>
     @endif
     @yield('content')
     {{-- Modal para iniciar sesión --}}

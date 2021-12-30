@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-    {{-- Información de la película --}}
+    {{-- Información de la serie --}}
     <main class="border-b border-gray-800">
         <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
             <img src="https://image.tmdb.org/t/p/w500{{ $serie['poster_path'] }}" alt="poster" class="w-full h-fit self-center sm:w-64 md:w-96 md:self-start">
@@ -66,4 +66,81 @@
             </div>
         </div>
     </main>
+
+    {{-- Seccion de actores --}}
+    <section class="cast border-b border-gray-800">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-4xl font-semibold">Actores</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                @foreach ($serie['credits']['cast'] as $cast)
+                    @if ($cast['profile_path'])
+                        <div class="actor mt-8">
+                            <a href="/actor/{{ $cast['id'] }}">
+                                <img src="https://image.tmdb.org/t/p/w500/{{ $cast['profile_path'] }}" alt="actor-profile" class="hover:opacity-75 transition ease-in-out duration-150">
+                                <p class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</p>
+                                <div class="text-sm text-gray-400">
+                                    {{ $cast['character'] }}
+                                </div>
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+            @if (count($serie['credits']['cast']) > 10)
+                <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todos los actores</button>
+            @endif
+        </div>
+    </section>
+
+    {{-- Seccion de temporadas --}}
+    <section class="seasons border-b border-gray-800">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-4xl font-semibold">Temporadas</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                @foreach ($serie['seasons'] as $season)
+                    @if ($season['poster_path'])
+                        <div class="season mt-8">
+                            <a href="">
+                                <img src="https://image.tmdb.org/t/p/w500/{{ $season['poster_path'] }}" alt="actor-profile" class="hover:opacity-75 transition ease-in-out duration-150">
+                            </a>
+                            <div class="mt-2">
+                                <a href="" class="text-lg mt-2 hover:text-gray-300">{{ $season['name'] }}</a>
+                                <div class="text-sm text-gray-400">
+                                    {{ $season['air_date'] }}
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+            @if (count($serie['seasons']) > 5)
+                <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todas las temporadas</button>
+            @endif
+        </div>
+    </section>
+
+    {{-- Seccion de imágenes --}}
+    <section class="images border-b border-gray-800">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-4xl font-semibold">Imágenes</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach ($serie['images']['backdrops'] as $image)
+                    @if ($image['file_path'])
+                        <div class="image mt-8">
+                            <a href="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}" target="_blank">
+                                <img src="https://image.tmdb.org/t/p/w500/{{ $image['file_path'] }}" alt="imagen de la serie" class="hover:opacity-75 transition ease-in-out duration-150">
+                            </a>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+            @if (count($serie['images']['backdrops']) > 9)
+                <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todas las imágenes</button>
+            @endif
+        </div>
+    </section>
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/serie.js') }}"></script>    
 @endsection

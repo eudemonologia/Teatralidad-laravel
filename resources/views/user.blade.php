@@ -3,7 +3,11 @@
 @section('content')
 <main class="border-b border-gray-800">
     <div class="container mx-auto px-4 py-16 flex flex-col md:flex-row">
+        @if ($user->avatar != null)
         <img src="{{asset('images/avatars/'.$user->avatar)}}" alt="avatar" class="rounded-full mx-auto md:mx-0 mb-6 md:mb-0 object-cover w-64 h-64">
+        @else
+        <img src="{{asset('images/avatars/default.png')}}" alt="avatar" class="rounded-full mx-auto md:mx-0 mb-6 md:mb-0 object-cover w-64 h-64">
+        @endif
         <div class="flex flex-col items-center md:ml-12 lg:ml-24 md:items-start">
 
             <div class="flex items-end gap-6">

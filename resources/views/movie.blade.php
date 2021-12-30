@@ -60,20 +60,20 @@
                 @foreach ($movie['credits']['cast'] as $cast)
                     @if ($cast['profile_path'])
                         <div class="actor mt-8">
-                            <a href="">
+                            <a href="/actor/{{ $cast['id'] }}">
                                 <img src="https://image.tmdb.org/t/p/w500/{{ $cast['profile_path'] }}" alt="actor-profile" class="hover:opacity-75 transition ease-in-out duration-150">
-                            </a>
-                            <div class="mt-2">
-                                <a href="" class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</a>
-                                <div class="text-sm text-gray-400">
+                                <p class="text-lg mt-2 hover:text-gray-300">{{ $cast['name'] }}</p>
+                                <p class="text-sm text-gray-400">
                                     {{ $cast['character'] }}
-                                </div>
-                            </div>
+                                </p>
+                            </a>
                         </div>
                     @endif
                 @endforeach
             </div>
-            <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todos los actores</button>
+            @if (count($movie['credits']['cast']) > 10)
+                <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todos los actores</button>
+            @endif
         </div>
     </section>
     
@@ -87,14 +87,16 @@
                 @foreach ($images['backdrops'] as $image)
                     @if ($image['file_path'])
                         <div class="image mt-8">
-                            <a href="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}" data-fancybox="images" data-caption="{{ $image['file_path'] }}">
-                                <img src="https://image.tmdb.org/t/p/w500/{{ $image['file_path'] }}" alt="actor-profile" class="hover:opacity-75 transition ease-in-out duration-150">
+                            <a href="https://image.tmdb.org/t/p/original/{{ $image['file_path'] }}" target="_blank">
+                                <img src="https://image.tmdb.org/t/p/w500/{{ $image['file_path'] }}" alt="imagen de la película" class="hover:opacity-75 transition ease-in-out duration-150">
                             </a>
                         </div>
                     @endif
                 @endforeach
             </div>
-            <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todas las imágenes</button>
+            @if (count($images['backdrops']) > 9)
+                <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">Ver todas las imágenes</button>
+            @endif
         </div>
     </section>
 

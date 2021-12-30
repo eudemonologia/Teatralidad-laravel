@@ -2070,13 +2070,13 @@ var scrollPosition = 0;
 buscador.addEventListener("keyup", function (e) {
   if (e.keyCode == 13 && buscador.value != "") {
     var palabraBuscada = buscador.value.toLowerCase().trim();
-    axios.get("./search/" + palabraBuscada).then(function (response) {
+    axios.get("/search/" + palabraBuscada).then(function (response) {
       var peliculas = response.data;
       resultados.innerHTML = "";
 
       if (peliculas.length > 0) {
         for (var i = 0; i < 10; i++) {
-          resultados.innerHTML += "\n                <li class=\"list-none border-b border-gray-700\">\n                    <a href=\"./movie/".concat(peliculas[i].id, "\" class=\"block hover:bg-gray-700 px-3 py-3\">\n                        ").concat(peliculas[i].title, "\n                    </a>\n                </li>\n                ");
+          resultados.innerHTML += "\n                <li class=\"list-none border-b border-gray-700\">\n                    <a href=\"/movie/".concat(peliculas[i].id, "\" class=\"block hover:bg-gray-700 px-3 py-3\">\n                        ").concat(peliculas[i].title, "\n                    </a>\n                </li>\n                ");
         }
       } else {
         resultados.innerHTML += "\n                <li class=\"list-none border-b border-gray-700 px-3 py-3\">\n                    No se encontraron resultados para \"".concat(buscador.value, "\"\n                </li>\n                ");
