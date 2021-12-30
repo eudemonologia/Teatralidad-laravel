@@ -2120,6 +2120,20 @@ nav.addEventListener("mouseout", function (e) {
     nav.classList.add("opacity-50");
   }
 });
+var likeBtn = document.querySelector(".likeBtn");
+var counter = document.querySelector(".likeBtn .counter");
+
+if (likeBtn) {
+  likeBtn.addEventListener("click", function () {
+    axios.post("/movie/" + likeBtn.dataset.id + "/like", {
+      id_user: likeBtn.dataset.user
+    }).then(function (response) {
+      counter.innerHTML = response.data;
+      likeBtn.classList.remove("bg-orange-500");
+      likeBtn.classList.add("bg-gray-500");
+    });
+  });
+}
 
 /***/ }),
 

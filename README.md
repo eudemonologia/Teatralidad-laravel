@@ -18,7 +18,7 @@ Un sitio web realizado con Laravel y TailwindCSS para la Beca Neoris en Programa
 
 ## DER
 
-[Drawio](/db.drawio)
+[Drawio](https://drive.google.com/file/d/1gwos8SeZ4KXSC7U4ULJmnWUGCl_PN2aK/view?usp=sharing)
 
 ## Autor
 

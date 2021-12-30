@@ -9,14 +9,16 @@
                 <h3 class="text-xl font-semibold text-gray-400 mb-4">{{ $movie['tagline'] }}</h3>
                 <h2 class="text-4xl font-semibold">{{ $movie['title'] }}</h2>
 
-                <div class="flex mt-4">
-                    <button class="bg-orange-500  text-gray-900 flex gap-1 px-1 rounded-sm text-sm">
-                        <span class="material-icons text-sm">
-                            thumb_up_off_alt
-                        </span>
-                        <p class="font-bold">0</p>
-                    </button>
-                </div>
+                @if (session('user'))
+                    <div class="flex mt-4">
+                        <button class="likeBtn bg-orange-500  text-gray-900 flex gap-1 px-1 rounded-sm text-sm" data-id="{{ $movie['id'] }}" data-user="{{ session('user')->id }}">
+                            <span class="material-icons text-sm">
+                                thumb_up_off_alt
+                            </span>
+                            <p name="counter" class="counter font-bold">{{$movie['likes'] }}</p>
+                        </button>
+                    </div>
+                @endif
 
                 <div class="flex flex-wrap items-center text-gray-400 text-sm mt-4">
                     <span class="material-icons text-orange-500 text-xs select-none">star</span>
@@ -122,5 +124,8 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('js/movie.js') }}"></script>    
+    <script src="{{ asset('js/movie.js') }}"></script>
+    @if (session('user'))
+        <script src="{{ asset('js/like.js') }}"></script>
+    @endif
 @endsection

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [MoviesController::class, 'index'])->name('home');
 Route::get('/movie/{id}', [MoviesController::class, 'show']);
+Route::post('/movie/{id}/like', [MoviesController::class, 'sumLike']);
 
 Route::get('/series', [SeriesController::class, 'index'])->name('series');
 Route::get('/serie/{id}', [SeriesController::class, 'show']);

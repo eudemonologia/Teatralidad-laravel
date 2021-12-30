@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class MoviesController extends Controller
@@ -65,6 +66,10 @@ class MoviesController extends Controller
             ->get('https://api.themoviedb.org/3/movie/' . $id . '/images')
             ->json();
 
+        $selectedMovie['likes'] = DB::table('likes')
+            ->where('id_movie', $id)
+            ->count();
+
         return view('movie', [
             'movie' => $selectedMovie,
             'images' => $images
@@ -113,5 +118,22 @@ class MoviesController extends Controller
 
         //retorna un json con los resultados de la busqueda
         return $movies;
+    }
+
+    public function sumLike($id)
+    {
+        $id_user = session('user')->id;
+
+        DB::table('likes')->insert([
+            'id_user' => $id_user,
+            'id_movie' => $id
+        ]);
+
+
+        $numLikes = DB::table('likes')
+            ->where('id_movie', $id)
+            ->count();
+
+        return $numLikes;
     }
 }

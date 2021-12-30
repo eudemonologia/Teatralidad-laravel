@@ -95,3 +95,20 @@ nav.addEventListener("mouseout", (e) => {
         nav.classList.add("opacity-50");
     }
 });
+
+const likeBtn = document.querySelector(".likeBtn");
+const counter = document.querySelector(".likeBtn .counter");
+
+if (likeBtn) {
+    likeBtn.addEventListener("click", () => {
+        axios
+            .post("/movie/" + likeBtn.dataset.id + "/like", {
+                id_user: likeBtn.dataset.user,
+            })
+            .then((response) => {
+                counter.innerHTML = response.data;
+                likeBtn.classList.remove("bg-orange-500");
+                likeBtn.classList.add("bg-gray-500");
+            });
+    });
+}
