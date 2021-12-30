@@ -9,7 +9,7 @@
                 <h3 class="text-xl font-semibold text-gray-400 mb-4">{{ $movie['tagline'] }}</h3>
                 <h2 class="text-4xl font-semibold">{{ $movie['title'] }}</h2>
                 <div class="flex flex-wrap items-center text-gray-400 text-sm mt-4">
-                    <span class="material-icons text-orange-500 text-xs">star</span>
+                    <span class="material-icons text-orange-500 text-xs select-none">star</span>
                     <span class="ml-1">{{ $movie['vote_average'] * 10 }}%</span>
                     <span class="mx-2">|</span>
                     <span>{{ $movie['release_date'] }}</span>
@@ -39,28 +39,15 @@
                 </div>
 
                 @if ($movie['videos']['results'])
-                <a class="mt-12" href="https://youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" target="_blank">
-                    <button class="flex items-center bg-orange-500 text-gray-900 rounded font-semibold px-6 py-4 hover:bg-orange-600 transition ease-in-out duration-150">
-                        <span class="material-icons mr-2 select-none">
-                            play_circle_outline
-                        </span>
-                        <p>Ver trailer</p>
-                    </button>
-                </a>
+                    <a href="https://www.youtube.com/watch?v={{ $movie['videos']['results'][0]['key'] }}" target="_blank" class="flex items-center mt-12">
+                        <button class="openModalVideoBtn flex items-center bg-orange-500 text-gray-900 rounded font-semibold w-fit px-6 py-4 mt-12 hover:bg-orange-600 transition ease-in-out duration-150">
+                            <span class="material-icons mr-2 select-none">
+                                play_circle_outline
+                            </span>
+                            <p>Ver trailer</p>
+                        </button>
+                    </a>
                 @endif
-
-    {{--             <div class="bg-gray-100 mt-auto">
-                    <h3 class="text-black font-semibold text-center">Productoras</h3>
-                    <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-                        @foreach ($movie['production_companies'] as $company)
-                            @if ($company['logo_path'])
-                                <div class=" p-2 flex items-center justify-center">
-                                    <img src="https://image.tmdb.org/t/p/w300/{{ $company['logo_path'] }}" alt="company-logo" class="h-12">
-                                </div>
-                            @endif
-                        @endforeach
-                    </div>
-                </div> --}}
             </div>
         </div>
     </main>
@@ -111,11 +98,13 @@
         </div>
     </section>
 
+    {{-- Model para ver el trailer --}}
+    <x-trailer-modal :movie="$movie" />
+
     @endif
 
 @endsection
 
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="{{ asset('js/movie.js') }}"></script>    
 @endsection

@@ -15,13 +15,14 @@
             <h3 class="mb-4 font-bold text-3xl flex items-center text-gray-900">
             Iniciar Sesión
             </h3>
-            <form action="" class="px-3 flex flex-col justify-center items-center w-full gap-3" method="POST">
+            <form action="/login" class="px-3 flex flex-col justify-center items-center w-full gap-3" method="POST">
+                @csrf
                 <input 
-                type="email" placeholder="email..."
+                type="email" name="email" id="loginEmail" placeholder="email..."
                 class="px-4 py-2 w-full rounded border border-gray-300 shadow-sm text-black placeholder-gray-500 placeholder-opacity-50 focus:outline-none focus:border-orange-500"
                 >
                 <input 
-                type="password" placeholder="contraseña..."
+                type="password" name="password" id="loginPassword" placeholder="contraseña..."
                 class="px-4 py-2 w-full rounded border border-gray-300 shadow-sm text-black placeholder-gray-500 placeholder-opacity-50 focus:outline-none focus:border-orange-500"
                 >
                 <button class="flex justify-center items-center bg-orange-500 hover:bg-orange-600 text-white focus:outline-none focus:ring rounded px-3 py-1">
@@ -35,7 +36,7 @@
             </form>
             <p class="text-gray-700 text-sm mt-2">
             ¿No tienes una cuenta?
-                <a href="#" class="text-orange-500 hover:text-orange-600 mt-3 focus:outline-none font-bold underline">
+                <a href="/register" class="text-orange-500 hover:text-orange-600 mt-3 focus:outline-none font-bold underline">
                 Regístrate
                 </a>
             </p>

@@ -1,30 +1,9 @@
 const { default: axios } = require("axios");
 
-const modal = document.querySelector(".modal");
-const login = document.querySelector(".login");
-const openModalLoginBtn = document.querySelector(".openModalLoginBtn");
-const closeModalLoginBtn = document.querySelector(".closeModalLoginBtn");
-
-openModalLoginBtn.addEventListener("click", () => {
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");
-    if (login.classList.contains("hidden")) {
-        login.classList.remove("hidden");
-    }
-});
-
-closeModalLoginBtn.addEventListener("click", () => {
-    modal.classList.add("hidden");
-});
-
-modal.addEventListener("click", (e) => {
-    if (e.target == modal) {
-        modal.classList.add("hidden");
-    }
-});
-
 const buscador = document.querySelector("#buscador");
 const resultados = document.querySelector(".resultados");
+const nav = document.querySelector("nav");
+let scrollPosition = 0;
 
 buscador.addEventListener("keyup", (e) => {
     if (e.keyCode == 13 && buscador.value != "") {
@@ -68,5 +47,27 @@ buscador.addEventListener("focus", () => {
 document.addEventListener("click", (e) => {
     if (e.target != buscador && e.target != resultados) {
         resultados.classList.add("hidden");
+    }
+});
+
+document.addEventListener("scroll", (e) => {
+    if (scrollPosition < window.scrollY) {
+        nav.classList.add("opacity-50");
+        scrollPosition = window.scrollY;
+    } else {
+        nav.classList.remove("opacity-50");
+        scrollPosition = window.scrollY;
+    }
+});
+
+nav.addEventListener("mouseover", (e) => {
+    if (nav.classList.contains("opacity-50")) {
+        nav.classList.remove("opacity-50");
+    }
+});
+
+nav.addEventListener("mouseout", (e) => {
+    if (!nav.classList.contains("opacity-50")) {
+        nav.classList.add("opacity-50");
     }
 });

@@ -4,19 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class trailerModal extends Component
+class serieCard extends Component
 {
-    public $movie;
-
+    public $serie;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($movie = null)
+    public function __construct($serie)
     {
-        $this->movie = $movie;
+        $this->serie = $serie;
     }
+
 
     /**
      * Get the view / contents that represent the component.
@@ -25,6 +25,6 @@ class trailerModal extends Component
      */
     public function render()
     {
-        return view('components.trailer-modal');
+        return view('components.serie-card');
     }
 }

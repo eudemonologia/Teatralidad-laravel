@@ -2063,28 +2063,10 @@ module.exports = {
 var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
     axios = _require["default"];
 
-var modal = document.querySelector(".modal");
-var login = document.querySelector(".login");
-var openModalLoginBtn = document.querySelector(".openModalLoginBtn");
-var closeModalLoginBtn = document.querySelector(".closeModalLoginBtn");
-openModalLoginBtn.addEventListener("click", function () {
-  modal.classList.remove("hidden");
-  modal.classList.add("flex");
-
-  if (login.classList.contains("hidden")) {
-    login.classList.remove("hidden");
-  }
-});
-closeModalLoginBtn.addEventListener("click", function () {
-  modal.classList.add("hidden");
-});
-modal.addEventListener("click", function (e) {
-  if (e.target == modal) {
-    modal.classList.add("hidden");
-  }
-});
 var buscador = document.querySelector("#buscador");
 var resultados = document.querySelector(".resultados");
+var nav = document.querySelector("nav");
+var scrollPosition = 0;
 buscador.addEventListener("keyup", function (e) {
   if (e.keyCode == 13 && buscador.value != "") {
     var palabraBuscada = buscador.value.toLowerCase().trim();
@@ -2110,6 +2092,25 @@ buscador.addEventListener("focus", function () {
 document.addEventListener("click", function (e) {
   if (e.target != buscador && e.target != resultados) {
     resultados.classList.add("hidden");
+  }
+});
+document.addEventListener("scroll", function (e) {
+  if (scrollPosition < window.scrollY) {
+    nav.classList.add("opacity-50");
+    scrollPosition = window.scrollY;
+  } else {
+    nav.classList.remove("opacity-50");
+    scrollPosition = window.scrollY;
+  }
+});
+nav.addEventListener("mouseover", function (e) {
+  if (nav.classList.contains("opacity-50")) {
+    nav.classList.remove("opacity-50");
+  }
+});
+nav.addEventListener("mouseout", function (e) {
+  if (!nav.classList.contains("opacity-50")) {
+    nav.classList.add("opacity-50");
   }
 });
 

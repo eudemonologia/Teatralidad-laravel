@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <title>Teatralidad</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
@@ -11,7 +12,7 @@
     @yield('css')
 </head>
 <body class="font-sans bg-gray-900 text-white">
-    <nav class="border-b border-gray-800">
+    <nav class="border-b border-gray-800 sticky top-0 z-30 bg-gray-900 transition-all ease-in-out duration-300">
         <div class="container mx-auto flex flex-col items-center px-4 py-6  md:flex-row md:items-end ">
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex items-center gap-3">
@@ -24,7 +25,7 @@
                     <a href="{{ route('home')}}" class="hover:text-gray-300">Películas</a>
                 </li>
                 <li>
-                    <a href="" class="hover:text-gray-300">Series</a>
+                    <a href="{{ route('series')}}" class="hover:text-gray-300">Series</a>
                 </li>
                 <li>
                     <a href="" class="hover:text-gray-300">Actores</a>
@@ -35,7 +36,7 @@
             <div class="flex items-center gap-4 flex-col md:flex-row md:items-end md:ml-auto">
 
                 {{-- Buscador --}}
-                <div class="searchBox relative">
+                <div class="searchBox relative self-center">
                     <input type="text" id="buscador" class="bg-gray-800 rounded-full w-64 px-4 pl-8 py-2 text-sm box-border text-white" placeholder="Buscar...">
                     <span class="material-icons absolute top-2 left-2 text-gray-500 select-none">search</span>
 
@@ -45,20 +46,50 @@
                     </div>
                 </div>
                     
-                {{-- Usuario --}}
-                <a href="" class="hidden">
-                    <img src="https://randomuser.me/api/portraits/men/24.jpg" alt="avatar" class="rounded-full w-10 h-10">
-                </a>
-
-                {{-- Botón de login --}}
-                <button class="openModalLoginBtn flex items-center px-4 py-2 text-white bg-orange-500 rounded-full">
-                    <span class="material-icons">
-                        login
-                        </span>
-                </button>
+                {{-- Verificar si hay un usuario en sesion --}}
+                @if (session()->has('user'))
+                    {{-- Usuario --}}
+                    <div class="userBox relative">
+                        <div class="userMenuBtn flex items-center gap-4">
+                            @if (session('user')->avatar)
+                                <div class="hover:text-gray-300 border-orange-500 border-2 rounded-full">
+                                    <img src="/images/avatars/{{ session('user')->avatar }}" alt="avatar" class="rounded-full w-10 h-10">
+                                </div>
+                            @else
+                            <div class="hover:text-gray-300 border-orange-500 border-2 rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 0 24 24" width="40px" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                            </div>
+                            @endif
+                        </div>
+                        <ul class="userMenu absolute right-0 bg-gray-800 text-sm rounded w-32 mt-4 overflow-hidden hidden">
+                            <li class="list-none border-b border-gray-700">
+                                <a href="/user/{{ session('user')->id }}" class="block hover:bg-gray-700 px-3 py-3">Perfil</a>
+                            </li>
+                            <li class="list-none border-b border-gray-700">
+                                <a href="/logout" class="block hover:bg-gray-700 px-3 py-3">Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                @else
+                
+                    {{-- Botón de login --}}
+                    <button class="openModalLoginBtn flex items-center px-4 py-2 text-white bg-orange-500 rounded-full">
+                        <span class="material-icons">
+                            login
+                            </span>
+                    </button>
+                @endif
             </div>
         </div>
     </nav>
+    {{-- Errores --}}
+    @if ($errors->any())
+            <ul class="container m-auto bg-red-500 text-white p-3 rounded-lg mt-4">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach 
+            </ul>
+    @endif
     @yield('content')
     {{-- Modal para iniciar sesión --}}
     <x-login-modal />
@@ -78,5 +109,11 @@
     </footer>
 </body>
 <script src="{{ asset('js/app.js') }}"></script>
+@if (session()->has('user'))
+    <script src="{{ asset('js/userNav.js') }}"></script>
+@else
+    <script src="{{ asset('js/login.js') }}"></script>
+@endif
+
 @yield('js')
 </html>
