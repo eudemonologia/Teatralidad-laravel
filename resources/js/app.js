@@ -11,17 +11,41 @@ buscador.addEventListener("keyup", (e) => {
         axios.get("/search/" + palabraBuscada).then((response) => {
             const peliculas = response.data;
 
+            console.log(peliculas);
+
             resultados.innerHTML = "";
 
             if (peliculas.length > 0) {
                 for (let i = 0; i < 10; i++) {
-                    resultados.innerHTML += `
-                <li class="list-none border-b border-gray-700">
-                    <a href="/movie/${peliculas[i].id}" class="block hover:bg-gray-700 px-3 py-3">
-                        ${peliculas[i].title}
-                    </a>
-                </li>
-                `;
+                    if (peliculas[i].media_type == "movie") {
+                        resultados.innerHTML += `
+                    <li class="list-none border-b border-gray-700">
+                        <a href="/movie/${peliculas[i].id}" class="block hover:bg-gray-700 px-3 py-3">
+                            ${peliculas[i].title} | Película
+                        </a>
+                    </li>
+                    `;
+                    } else if (peliculas[i].media_type == "tv") {
+                        resultados.innerHTML += `
+                    <li class="list-none border-b border-gray-700">
+                        <a href="/serie/${peliculas[i].id}" class="block hover:bg-gray-700 px-3 py-3">
+                            ${peliculas[i].name} | Serie
+                        </a>
+                    </li>
+                    `;
+                    } else if (peliculas[i].media_type == "person") {
+                        resultados.innerHTML += `
+                    <li class="list-none border-b border-gray-700">
+                        <a href="/actor/${
+                            peliculas[i].id
+                        }" class="block hover:bg-gray-700 px-3 py-3">
+                            ${peliculas[i].name} | ${
+                            peliculas[i].gender == 2 ? "actor" : "actriz"
+                        }
+                        </a>
+                    </li>
+                    `;
+                    }
                 }
             } else {
                 resultados.innerHTML += `

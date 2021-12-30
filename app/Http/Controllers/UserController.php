@@ -200,7 +200,7 @@ class UserController extends Controller
 
         //login with credentials and save user in session
         if ($user) {
-            return Redirect::to(url()->previous());
+            return Redirect::to(url()->previous())->with('message', 'Bienvenido ' . $user->name) . " " . $user->lastname;
         } else {
             return Redirect::back()->withErrors(['message' => 'Email o contraseña incorrectas.']);
         }

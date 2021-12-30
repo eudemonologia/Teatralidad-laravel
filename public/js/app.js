@@ -2072,11 +2072,18 @@ buscador.addEventListener("keyup", function (e) {
     var palabraBuscada = buscador.value.toLowerCase().trim();
     axios.get("/search/" + palabraBuscada).then(function (response) {
       var peliculas = response.data;
+      console.log(peliculas);
       resultados.innerHTML = "";
 
       if (peliculas.length > 0) {
         for (var i = 0; i < 10; i++) {
-          resultados.innerHTML += "\n                <li class=\"list-none border-b border-gray-700\">\n                    <a href=\"/movie/".concat(peliculas[i].id, "\" class=\"block hover:bg-gray-700 px-3 py-3\">\n                        ").concat(peliculas[i].title, "\n                    </a>\n                </li>\n                ");
+          if (peliculas[i].media_type == "movie") {
+            resultados.innerHTML += "\n                    <li class=\"list-none border-b border-gray-700\">\n                        <a href=\"/movie/".concat(peliculas[i].id, "\" class=\"block hover:bg-gray-700 px-3 py-3\">\n                            ").concat(peliculas[i].title, " | Pel\xEDcula\n                        </a>\n                    </li>\n                    ");
+          } else if (peliculas[i].media_type == "tv") {
+            resultados.innerHTML += "\n                    <li class=\"list-none border-b border-gray-700\">\n                        <a href=\"/serie/".concat(peliculas[i].id, "\" class=\"block hover:bg-gray-700 px-3 py-3\">\n                            ").concat(peliculas[i].name, " | Serie\n                        </a>\n                    </li>\n                    ");
+          } else if (peliculas[i].media_type == "person") {
+            resultados.innerHTML += "\n                    <li class=\"list-none border-b border-gray-700\">\n                        <a href=\"/actor/".concat(peliculas[i].id, "\" class=\"block hover:bg-gray-700 px-3 py-3\">\n                            ").concat(peliculas[i].name, " | ").concat(peliculas[i].gender == 2 ? "actor" : "actriz", "\n                        </a>\n                    </li>\n                    ");
+          }
         }
       } else {
         resultados.innerHTML += "\n                <li class=\"list-none border-b border-gray-700 px-3 py-3\">\n                    No se encontraron resultados para \"".concat(buscador.value, "\"\n                </li>\n                ");
