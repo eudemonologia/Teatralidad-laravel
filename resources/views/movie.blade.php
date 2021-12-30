@@ -18,6 +18,13 @@
                             <p name="counter" class="counter font-bold">{{$movie['likes'] }}</p>
                         </button>
                     </div>
+                @else
+                    <div class="flex items-center gap-4 mt-4">
+                            <span class="material-icons text-sm select-none">
+                                thumb_up
+                            </span>
+                            <p name="counter" class="counter font-bold">{{$movie['likes'] }}</p>
+                    </div>
                 @endif
 
                 <div class="flex flex-wrap items-center text-gray-400 text-sm mt-4">

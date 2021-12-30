@@ -198,6 +198,9 @@ class UserController extends Controller
                 unlink(public_path() . '/images/avatars/' . $user->avatar);
             }
 
+            //Delete all the likes of the user
+            DB::table('likes')->where('id_user', $id)->delete();
+
             //Delete the user
             DB::table('users')->where('id', $id)->delete();
 
