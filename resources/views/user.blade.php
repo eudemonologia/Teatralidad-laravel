@@ -46,4 +46,34 @@
         </div>
     </div>
 </main>
+
+{{-- Películas con like del usuario --}}
+@if( session()->has('user'))
+<section class="movies border-b border-gray-800">
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-4xl font-semibold">Películas Favoritas</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        @foreach ($user->likedMovies as $movie)
+            @if ($movie['poster_path'])
+                <div class="movie mt-8">
+                    <a href="/movie/{{ $movie['id'] }}">
+                        <img src="https://image.tmdb.org/t/p/w400{{ $movie['poster_path'] }}" alt="Poster de {{ $movie['title'] }}" class="hover:opacity-75 transition ease-in-out duration-150 object-cover h-96">
+                        <p class="text-lg mt-2 hover:text-gray-300">{{ $movie['title'] }}</p>
+                        <p class="text-gray-400 text-sm">
+                            <span class="material-icons text-orange-500 text-xs select-none">star</span>
+                            {{$movie['vote_average'] * 10}}% | {{$movie['release_date']}}
+                        </p>	
+                    </a>
+                </div>
+            @endif
+        @endforeach
+        </div>
+        @if (count($user->likedMovies) > 10)
+            <button class="seeAllBtn block uppercase mt-8 text-orange-500 hover:text-orange-600 m-auto">
+                Ver todas las películas
+            </button>
+        @endif
+    </div>
+</section>
+@endif
 @endsection

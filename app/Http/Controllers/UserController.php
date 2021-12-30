@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Facade\Ignition\DumpRecorder\Dump;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redirect;
+
+use function PHPSTORM_META\map;
 
 class UserController extends Controller
 {
@@ -85,6 +88,23 @@ class UserController extends Controller
     public function show($id)
     {
         $user = DB::table('users')->where('id', $id)->first();
+
+        //get 10 id_movie from likes table grup by id_movie
+        $likes = DB::table('likes')->select('id_movie')->where('id_user', $id)->groupBy('id_movie')->limit(10)->get();
+
+        //Illuminate\Support\Collection to array
+        $likes = $likes->map(function ($item) {
+            return (array) $item;
+        })->toArray();
+
+        $user->likedMovies = [];
+
+        foreach ($likes as $like) {
+            $movie = Http::withToken(config('services.tmdb.token'))
+                ->get('https://api.themoviedb.org/3/movie/' . $like['id_movie'] . '?language=es-ES')
+                ->json();
+            array_push($user->likedMovies, $movie);
+        }
 
         return view('user', [
             'user' => $user,
